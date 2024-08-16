@@ -1,0 +1,40 @@
+div.container > * {
+  border-radius: 5px;
+}
+
+div.red {
+  background-color: darkred;
+  grid-area: red;
+}
+
+div.blue {
+  background-color: darkblue;
+  grid-area: blue;
+}
+
+div.green {
+  background-color: green;
+  grid-area: green;
+}
+
+div.purple {
+  background-color: purple;
+  grid-area: purple;
+}
+
+div.orange {
+  background-color: orange;
+  grid-area: orange;
+}
+
+div.container {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, 1fr) 1fr 1fr;
+  grid-template-rows: repeat(3, 80px);
+  grid-template-areas:
+    "red red red red"
+    "green green purple purple"
+    "green green blue orange";
+  background-color: whitesmoke;
+}
