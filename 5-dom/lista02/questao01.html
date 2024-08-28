@@ -1,0 +1,35 @@
+<body>
+  <h1>Várias listas</h1>
+
+  <div>
+    <p id="lista-titulo" name="lista">Lista de itens:</p>
+  </div>
+
+  <ul id="lista-itens-1">
+    <li id="one" class="hot">item a</li>
+    <li id="two" class="hot">item b</li>
+    <li id="three" class="hot">item c</li>
+    <li id="four">item d</li>
+  </ul>
+  <script>
+    console.log("Imprima no console o primeiro e último filho da lista 1;");
+    let primeiro = document.getElementById("lista-itens-1").firstElementChild
+    let ultimo = document.getElementById("lista-itens-1").lastElementChild
+    console.log(primeiro);
+    console.log(ultimo);
+    console.log("Imprima no console o elemento HTML pai da lista 1;");
+    let pai = document.getElementById("one").parentElement
+    console.log(pai);
+    console.log("Imprima no console todos os filhos da lista 1;")
+    let element = document.getElementById("lista-itens-1").children
+    for (i=0; i<element.length;i++){
+      console.log(element[i])
+    }
+    console.log("Imprima no console os irmãos do item com id = 'two'")
+    let two = document.getElementById("two")
+    let twoIrmaoAnterior = two.previousElementSibling
+    let twoIrmaoPosterior = two.nextElementSibling
+    console.log(twoIrmaoAnterior)
+    console.log(twoIrmaoPosterior)
+  </script>
+</body>

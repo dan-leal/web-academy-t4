@@ -1,0 +1,47 @@
+<body>
+  <h1>Várias listas</h1>
+
+  <p id="lista-titulo" name="lista">Lista de itens:</p>
+
+  <ul class="lista-itens-1">
+    <li id="one" class="hot">item a</li>
+    <li id="two" class="hot">item b</li>
+    <li id="three" class="hot">item c</li>
+    <li id="four">item d</li>
+  </ul>
+
+  <ul class="lista-itens-2">
+    <li id="one" class="hot">item a</li>
+    <li id="two" class="hot">item b</li>
+    <li id="three" class="hot">item c</li>
+    <li id="four">item d</li>
+  </ul>
+
+  <ul class="lista-itens-3">
+    <li id="one" class="hot">item a</li>
+    <li id="two" class="hot">item b</li>
+    <li id="three" class="hot">item c</li>
+    <li id="four">item d</li>
+  </ul>
+
+  <ul class="lista-itens-4">
+    <li id="one" class="hot">item a</li>
+    <li id="two" class="hot">item b</li>
+    <li id="three" class="hot">item c</li>
+    <li id="four">item d</li>
+  </ul>
+  <script>
+    console.log("Imprima no console todos os itens da lista-itens-2");
+    let lista2 = document.querySelectorAll(".lista-itens-2 > li");
+    for (let i = 0; i < lista2.length; i++) {
+      console.log(lista2[i]);
+    }
+    console.log(
+      "Imprima no console somente os itens da lista-itens-2 que possuam a classe 'hot'."
+    );
+    let lista2hot = document.querySelectorAll(".lista-itens-2 > li.hot");
+    for (let i = 0; i < lista2hot.length; i++) {
+      console.log(lista2hot[i]);
+    }
+  </script>
+</body>
