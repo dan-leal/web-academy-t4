@@ -1,0 +1,39 @@
+<body>
+  <h1>To-do</h1>
+
+  <div>
+    <p id="lista-titulo" name="lista">Lista de atividades:</p>
+  </div>
+
+  <div>
+    <input placeholder="Digite aqui o item" />
+    <button onclick="adicionar()">Adicionar</button>
+  </div>
+
+  <ul id="lista-itens">
+    <li>item a</li>
+  </ul>
+
+  <div>
+    <button onclick="remover()">Remover último item</button>
+  </div>
+  <script>
+    function adicionar() {
+      let input = document.querySelector("input").value;
+      if (input !== "") {
+        let text = document.createTextNode(input);
+        let ele = document.createElement("li");
+        ele.appendChild(text);
+        let position = document.getElementById("lista-itens");
+        position.appendChild(ele);
+      }
+    }
+    function remover() {
+      let lista = document.getElementById("lista-itens");
+      if (lista.lastElementChild) {
+        let pai = document.getElementById("lista-itens");
+        pai.removeChild(pai.lastElementChild);
+      }
+    }
+  </script>
+</body>
