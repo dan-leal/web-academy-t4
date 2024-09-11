@@ -1,4 +1,4 @@
-const http = require("http");
+import http from "http";
 
 // arquivo index.js
 console.log("Instituto de Computacão");

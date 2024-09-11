@@ -4,7 +4,8 @@
   "main": "node1.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node node1.js"
+    "start": "NODE_ENV=development nodemon src/node1.js",
+    "start:prod": "NODE_ENV=production node src/node1.js"
   },
   "keywords": [],
   "author": "",
