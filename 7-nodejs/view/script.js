@@ -1,6 +1,6 @@
-function printNumber() {
-  const number = document.getElementById("numberInput").value;
-  document.getElementById("output").innerHTML = `
+function imprimirLorem() {
+  const number = document.getElementById("paragrafosInput").value;
+  document.getElementById("saidaDeTexto").innerHTML = `
     <p>${gerarLoremIpsum(number)}</p>
   `;
 }
@@ -8,7 +8,7 @@ function printNumber() {
 // Inspirado em outros códigos da internet
 function gerarLoremIpsum(numParagrafos) {
   let loremIpsum = "";
-  let numPalavras = Math.floor(Math.random() * 50) + 10;
+
   // inspirado no site: https://www.codewithfaraz.com/content/166/create-your-own-lorem-ipsum-generator-using-html-css-and-javascript
   let palavra = [
     "Lorem",
@@ -83,6 +83,7 @@ function gerarLoremIpsum(numParagrafos) {
   ];
   for (let i = 0; i < numParagrafos; i++) {
     var paragraph = "";
+    let numPalavras = Math.floor(Math.random() * 50) + 10;
     for (let j = 0; j < numPalavras; j++) {
       // seleciona um índice aleatório do vetor de palavras
       var palavraAleatoria =
