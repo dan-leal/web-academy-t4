@@ -1,18 +1,23 @@
 {
   "name": "7-nodejs",
   "version": "1.0.0",
-  "main": "node1.js",
+  "main": "node2.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=development nodemon src/node1.js",
-    "start:prod": "NODE_ENV=production node src/node1.js"
+    "start": "NODE_ENV=development nodemon src/node2.js",
+    "start:prod": "NODE_ENV=production node src/node2.js",
+    "lorem:dev": "NODE_ENV=development nodemon src/node3.js",
+    "lorem:prod": "NODE_ENV=production node src/node3.js"
   },
   "keywords": [],
   "author": "",
   "type": "module",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.0.0"
+    "express": "^5.0.0",
+    "helper-lorem": "^0.1.1",
+    "lorem-ipsum": "^2.0.8",
+    "node-lipsum": "^1.0.1"
   },
   "devDependencies": {
     "dotenv": "^16.4.5",

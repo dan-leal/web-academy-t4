@@ -1,11 +1,7 @@
-const { http } = require("http");
-const { readFileSync } = require("fs");
-const {
-  lerDir,
-  createLink,
-  escreveArquivoHTML,
-} = require("../utils/utils1.js");
-const dotenv = require("dotenv");
+import http from "http";
+import { readFileSync } from "fs";
+import { lerDir, createLink, escreveArquivoHTML } from "../utils/utils2.js";
+import dotenv from "dotenv";
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
