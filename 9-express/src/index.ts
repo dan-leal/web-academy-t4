@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { engine } from 'express-handlebars';
-
+import sass from 'node-sass-middleware';
 import router from './router/router';
 import { dirname } from 'path';
 
@@ -25,6 +25,19 @@ app.use('/js', [
 
 // configurando logger
 app.use('/img', express.static(`${__dirname}/../public/img`));
+
+// utilizando sass
+app.use(
+  sass({
+    src: `${__dirname}/../public/scss`,
+    dest: `${__dirname}/../public/css`,
+    outputStyle: 'compressed',
+    prefix: '/css',
+  }),
+);
+
+app.use('/css', express.static(`${__dirname}/../public/css`));
+
 app.use(express.urlencoded({ extended: false }));
 app.use(router);
 
