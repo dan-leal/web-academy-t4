@@ -1,0 +1,29 @@
+{
+  "devDependencies": {
+    "@eslint/js": "^9.11.1",
+    "@types/express": "^4.17.21",
+    "@types/express-handlebars": "^5.3.1",
+    "@types/node": "^22.6.1",
+    "eslint": "^9.11.1",
+    "globals": "^15.9.0",
+    "lorem-ipsum": "^2.0.8",
+    "nodemon": "^3.1.7",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.7.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-handlebars": "^8.0.1"
+  },
+  "scripts": {
+    "start": "nodemon src/index.ts",
+    "build": "npx tsc",
+    "start:prod": "node build/index.js",
+    "lint": "npx eslint src/",
+    "lint:fix": "npx eslint --fix src/",
+    "format": "npx prettier --write src/"
+  }
+}

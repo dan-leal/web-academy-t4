@@ -1,0 +1,10 @@
+<p>Tecnologias baseadas no NojeJS:</p>
+<ul>
+    {{#each techs}}
+    {{#if poweredByNodejs}}
+    <li>
+        {{name}} - {{type}}
+    </li>
+    {{/if}}
+    {{/each}}
+</ul>
