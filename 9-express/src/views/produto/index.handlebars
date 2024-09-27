@@ -1,0 +1,28 @@
+<div class='d-flex justify-content-between'>
+  <h3>Listagem de produtos</h3>
+  <a href='/produtos/create' type='button' class='btn btn-primary'>+</a>
+</div>
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th scope='col'>Id</th>
+      <th scope='col'>Nome</th>
+      <th scope='col'>Preco</th>
+      <th scope='col'>Opções</th>
+      <th scope='col' style='text-align: right;'>Opções</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each produtos}}
+      <tr>
+        <th scope='row'>{{id}}</th>
+        <td>{{nome}}</td>
+        <td>{{preco}}</td>
+        <td>{{estoque}}</td>
+        <td style='text-align: right;'>
+          <i class='bi bi-eye'></i>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
