@@ -4,7 +4,7 @@
 // Cada lembrete deve ter:
 // Título
 // Data e Hora de Inserção
-// 1. Select the div element using the id property
+// Cria o elemento de parágrafo e adiciona a div App
 const app = document.getElementById("app");
 const p = document.createElement("p");
 p.textContent = "Lembretes para realizar";
