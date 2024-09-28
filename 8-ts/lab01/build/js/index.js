@@ -23,6 +23,10 @@ app === null || app === void 0 ? void 0 : app.appendChild(botao);
 const lembretes = [];
 // cria um evento de click para o botão
 botao.addEventListener("click", () => {
+    if (entrada.value === "") {
+        alert("O lembrete não pode ser vazio");
+        return;
+    }
     const lembrete = [entrada.value, new Date().toLocaleString()];
     lembretes.push(lembrete);
     renderLembretes();

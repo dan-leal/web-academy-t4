@@ -28,6 +28,10 @@ const lembretes: [string, string][] = [];
 
 // cria um evento de click para o botão
 botao.addEventListener("click", () => {
+  if (entrada.value === "") {
+    alert("O lembrete não pode ser vazio");
+    return;
+  }
   const lembrete: [string, string] = [entrada.value, new Date().toLocaleString()];
   lembretes.push(lembrete);
   renderLembretes();
