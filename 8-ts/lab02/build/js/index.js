@@ -77,11 +77,9 @@ class Turma {
     }
     adicionarAluno(aluno) {
         this.alunos.push(aluno);
-        this.atualizarEstatisticas();
     }
     removerAluno(id) {
         this.alunos = this.alunos.filter(aluno => aluno.getId() !== id);
-        this.atualizarEstatisticas();
     }
     editarAluno(id, nome, idade, altura, peso) {
         const aluno = this.alunos.find(aluno => aluno.getId() === id);
@@ -90,7 +88,6 @@ class Turma {
             aluno.setIdade(idade);
             aluno.setAltura(altura);
             aluno.setPeso(peso);
-            this.atualizarEstatisticas();
         }
     }
     getNumAlunos() {
@@ -107,12 +104,6 @@ class Turma {
     getMediaPesos() {
         const totalPesos = this.alunos.reduce((sum, aluno) => sum + aluno.getPeso(), 0);
         return this.alunos.length ? (totalPesos / this.alunos.length).toFixed(2) : '0.00';
-    }
-    atualizarEstatisticas() {
-        console.log(`Número de Alunos: ${this.getNumAlunos()}`);
-        console.log(`Média de Idades: ${this.getMediaIdades()}`);
-        console.log(`Média de Alturas: ${this.getMediaAlturas()}`);
-        console.log(`Média de Pesos: ${this.getMediaPesos()}`);
     }
 }
 // Criando os Alunos e Turma
@@ -186,7 +177,7 @@ buttonAdicionar.type = 'button';
 buttonAdicionar.className = 'btn btn-primary';
 buttonAdicionar.textContent = 'Adicionar Aluno';
 app === null || app === void 0 ? void 0 : app.appendChild(buttonAdicionar);
-buttonAdicionar.addEventListener('click', () => {
+function adicionarAlunoHandler() {
     const nome = inputNome.value;
     const idade = Number(inputIdade.value);
     const altura = Number(inputAltura.value);
@@ -198,8 +189,11 @@ buttonAdicionar.addEventListener('click', () => {
         inputIdade.value = '';
         inputAltura.value = '';
         inputPeso.value = '';
+        atualizarTabelaAlunos();
+        atualizarEstatisticasUI();
     }
-});
+}
+buttonAdicionar.addEventListener('click', adicionarAlunoHandler);
 const tabelaAlunos = document.createElement('table');
 tabelaAlunos.className = 'table table-striped mt-4';
 app === null || app === void 0 ? void 0 : app.appendChild(tabelaAlunos);
@@ -217,7 +211,6 @@ tabelaAlunos.appendChild(thead);
 const tbody = document.createElement('tbody');
 tabelaAlunos.appendChild(tbody);
 function atualizarTabelaAlunos() {
-    console.log('Alunos:', turma['alunos']);
     tbody.innerHTML = '';
     // confere que todos os alunos presentes possuem dados válido
     turma['alunos'] = turma['alunos'].filter(aluno => aluno.getNome() && aluno.getIdade() && aluno.getAltura() && aluno.getPeso());
@@ -263,25 +256,10 @@ function atualizarTabelaAlunos() {
         });
     });
 }
-function adicionarAlunoHandler() {
-    const nome = inputNome.value;
-    const idade = Number(inputIdade.value);
-    const altura = Number(inputAltura.value);
-    const peso = Number(inputPeso.value);
-    if (nome && idade && altura && peso) {
-        const aluno = new Aluno(nome, idade, altura, peso);
-        console.log(`Adicionando aluno: ${aluno.getDados()}`);
-        turma.adicionarAluno(aluno);
-        inputNome.value = '';
-        inputIdade.value = '';
-        inputAltura.value = '';
-        inputPeso.value = '';
-        atualizarTabelaAlunos();
-        atualizarEstatisticasUI();
-    }
-}
-buttonAdicionar.addEventListener('click', adicionarAlunoHandler);
 // Para afetar o comportamento de adicionarAluno e removerAluno, podemos usar a técnica de monkey patching
+// onde a função original é setada a uma variável e a função original é substituída por uma nova função que chama a função original
+// e atualiza a tabela de alunos e as estatísticas da turma.
+// somente para os alunos adicionados automaticamente, pois os alunos adicionados manualmente já estão sendo tratados de forma correta.
 turma.adicionarAluno = (function (original) {
     return function (...args) {
         original.apply(this, args);
