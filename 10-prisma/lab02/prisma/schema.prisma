@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  cpf            String   @id
+  nome           String
+  email          String
+  telefone       String
+  dataNascimento DateTime
+
+  endereco Endereco[] // um cliente tem vários endereços
+
+  Pedido ItemPedido[] // um cliente tem vários pedidos
+}
+
+model Endereco {
+  id  Int    @id @default(autoincrement())
+  rua String
+  cep String
+
+  cliente    Cliente @relation(fields: [clienteCPF], references: [cpf])
+  clienteCPF String // um endereço pertence a um cliente
+
+  Compra Compra[] // um endereço pode receber várias compras
+}
+
+model Categoria {
+  nome          String         @id
+  subcategorias Subcategoria[] // uma categoria tem várias subcategorias
+}
+
+model Subcategoria {
+  id      Int       @id @default(autoincrement())
+  nome    String
+  Produto Produto[]
+
+  Categoria     Categoria @relation(fields: [categoriaNome], references: [nome])
+  categoriaNome String // uma subcategoria pertence a uma categoria
+}
+
+model Modelo {
+  nome      String  @unique
+  descricao String?
+
+  numSerieCadastrados NumeroSerie[] // um modelo tem vários números de série
+  Produto             Produto[] // um modelo tem vários produtos
+}
+
+model NumeroSerie {
+  numero String @id @unique
+
+  modelo     Modelo @relation(fields: [modeloNome], references: [nome])
+  modeloNome String // um número de série pertence a um modelo
+}
+
+model Produto {
+  id         Int    @id @default(autoincrement())
+  nome       String
+  descricao  String
+  preco      Float
+  fabricante String
+  qtdEstoque Int
+
+  subcategoria   Subcategoria @relation(fields: [subcategoriaID], references: [id])
+  subcategoriaID Int // um produto tem uma subcategoria
+  modelo         Modelo       @relation(fields: [modeloNome], references: [nome])
+  modeloNome     String // um produto tem um modelo
+
+  ItemPedido ItemPedido[] // um produto pode estar em vários pedidos
+}
+
+model Compra {
+  id         Int      @id @default(autoincrement())
+  dataCompra DateTime
+  formaPag   String
+  desconto   Float
+
+  entregaNo   Endereco @relation(fields: [entregaNoid], references: [id])
+  entregaNoid Int // uma compra tem um endereço de entrega
+
+  itemPedido ItemPedido[] // uma compra tem vários itens de pedido
+}
+
+model ItemPedido {
+  qtd Int
+
+  compra   Compra @relation(fields: [compraID], references: [id])
+  compraID Int // um item de pedido pertence a uma compra
+
+  produto   Produto @relation(fields: [produtoID], references: [id])
+  produtoID Int // um item de pedido tem um produto
+
+  cliente    Cliente @relation(fields: [clienteCPF], references: [cpf])
+  clienteCPF String // um item de pedido pertence a um cliente
+
+  @@id([compraID, produtoID, clienteCPF])
+}
