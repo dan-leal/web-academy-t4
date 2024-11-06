@@ -2,13 +2,11 @@
 import Image from "next/image";
 import React from "react";
 
-import Navbar from "./components/Navbar/Navbar";
 import ResumoCarrinho from "./components/Carrinho/ResumoCarrinho";
 
 export default function Produtos() {
   return (
     <>
-      <Navbar></Navbar>
       <main>
         <div className="container p-5">
           <ResumoCarrinho></ResumoCarrinho>
