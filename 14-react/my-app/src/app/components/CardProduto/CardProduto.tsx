@@ -1,12 +1,7 @@
 "use client";
-import Produto from "../../types/Produto";
+import { CardProdutoProps } from "../../types/Produto";
 import Image from "next/image";
 import React from "react";
-
-interface CardProdutoProps {
-  produto: Produto;
-  adicionarCarrinho: (produto: Produto) => void;
-}
 
 // Deverá receber via props o objeto Produto;
 // Considere o primeiro valor do array de "fotos" para renderizar a imagem do produto.

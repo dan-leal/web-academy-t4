@@ -3,7 +3,6 @@ interface Fotos {
   src: string;
 }
 
-
 interface Produto {
   id: string;
   fotos: Fotos[];
@@ -14,4 +13,9 @@ interface Produto {
   usuario_id: string;
 }
 
-export default Produto;
+interface CardProdutoProps {
+  produto: Produto;
+  adicionarCarrinho: (produto: Produto) => void;
+}
+
+export type { Produto, CardProdutoProps };

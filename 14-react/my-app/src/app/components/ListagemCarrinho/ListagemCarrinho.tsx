@@ -1,34 +1,13 @@
 "use client";
 import React from "react";
 import ItemCarrinho from "../ItemCarrinho/ItemCarrinho";
+import { ItemCarrinhoType, ListagemCarrinhoProps } from "@/app/types/Carrinho";
 
-export default function ListagemCarrinho() {
-  const produto = [
-    {
-      id: 1,
-      title: "Notebook 1",
-      value: 1500,
-      quantity: 1
-    },
-    {
-      id: 2,
-      title: "Notebook 2",
-      value: 2000,
-      quantity: 2
-    },
-    {
-      id: 3,
-      title: "Notebook 3",
-      value: 2500,
-      quantity: 3
-    },
-    {
-      id: 4,
-      title: "Notebook 4",
-      value: 3000,
-      quantity: 4
-    }
-  ];
+export default function ListagemCarrinho({ itensCarrinho, setItensCarrinho }: ListagemCarrinhoProps) {
+
+  const removerItem = (id: string) => {
+    setItensCarrinho((prevItens) => prevItens.filter(item => item.id !== id));
+  };
 
   return (
     <>
@@ -49,8 +28,8 @@ export default function ListagemCarrinho() {
                 </tr>
               </thead>
               <tbody>
-                {produto.map((item, index) => (
-                  <ItemCarrinho key={index} title={item.title} value={item.value} quantity={item.quantity} id={item.id} />
+                {itensCarrinho.map((item: ItemCarrinhoType, index: number) => (
+                  <ItemCarrinho key={index} nome={item.nome} preco={item.preco} quantidade={item.quantidade} id={item.id} removerItem={removerItem} />
                 ))}
               </tbody>
 
