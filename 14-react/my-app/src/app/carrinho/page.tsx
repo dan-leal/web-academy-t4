@@ -4,6 +4,9 @@ import ResumoCarrinho from "../components/ResumoCarrinho/ResumoCarrinho";
 import ListagemCarrinho from "../components/ListagemCarrinho/ListagemCarrinho";
 import { mockItensCarrinho } from "../mocks/itensCarrinho";
 
+// Página /Carrinho
+
+
 export default function Carrinho() {
   const [itensCarrinho, setItensCarrinho] = React.useState(mockItensCarrinho);
   const [precoTotal, setPrecoTotal] = React.useState(0);

@@ -5,6 +5,10 @@ import ResumoCarrinho from "./components/ResumoCarrinho/ResumoCarrinho";
 import ListagemProduto from "./components/ListagemProduto/ListagemProduto";
 import { Produto } from "./types/Produto";
 
+
+// Página /
+
+
 export default function Produtos() {
   const produtos = mockProdutos;
   const [quantidadeItensTotal, setQuantidade] = React.useState(0);
