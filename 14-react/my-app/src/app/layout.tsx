@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/Navbar/Navbar";
+import BootstrapClient from "./BootstrapClient";
 
 export const metadata: Metadata = {
   title: "WA Loja",
@@ -16,6 +17,7 @@ export default function RootLayout({
       <body>
         <Navbar></Navbar>
         <main>{children}</main>
+        <BootstrapClient />
       </body>
     </html>
   );

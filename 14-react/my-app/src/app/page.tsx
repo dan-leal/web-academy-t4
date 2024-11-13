@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { mockProdutos } from "@/app/mocks/produto";
 import ResumoCarrinho from "./components/ResumoCarrinho/ResumoCarrinho";
 import ListagemProduto from "./components/ListagemProduto/ListagemProduto";
@@ -15,6 +15,21 @@ export default function Produtos() {
     setPrecoTotal((prev) => prev + Number(item.preco));
   };
 
+  const [dados, setDados] = React.useState<Produto | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://ranekapi.origamid.dev/json/api/produto/notebook"
+        );
+        const json = await response.json();
+        setDados(json);
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
