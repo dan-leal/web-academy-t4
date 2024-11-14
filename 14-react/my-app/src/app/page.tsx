@@ -16,20 +16,6 @@ export default function Produtos() {
   };
 
   const [dados, setDados] = React.useState<Produto | null>(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://ranekapi.origamid.dev/json/api/produto/notebook"
-        );
-        const json = await response.json();
-        setDados(json);
-      } catch (error) {
-        console.error("Erro ao buscar dados:", error);
-      }
-    };
-    fetchData();
-  }, []);
 
   return (
     <>
@@ -40,7 +26,6 @@ export default function Produtos() {
             precoTotal={precoTotal}
           ></ResumoCarrinho>
           <ListagemProduto
-            produtos={produtos}
             adicionarAoCarrinho={handleClickReativo}
           ></ListagemProduto>
         </div>

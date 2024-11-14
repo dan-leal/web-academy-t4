@@ -13,9 +13,13 @@ interface Produto {
   usuario_id: string;
 }
 
+interface IListagemProdutosProps {
+  adicionarAoCarrinho: (item: Produto) => void;
+}
+
 interface CardProdutoProps {
   produto: Produto;
   adicionarCarrinho: (produto: Produto) => void;
 }
 
-export type { Produto, CardProdutoProps };
+export type { Produto, CardProdutoProps, IListagemProdutosProps };

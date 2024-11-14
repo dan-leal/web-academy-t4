@@ -1,12 +1,21 @@
 "use client";
+import { useAddFavorito } from "@/app/hooks/useAddFavorito";
 import { CardProdutoProps } from "../../types/Produto";
 import Image from "next/image";
 import React from "react";
+import { toast } from "react-toastify";
 
 // Deverá receber via props o objeto Produto;
 // Considere o primeiro valor do array de "fotos" para renderizar a imagem do produto.
 // Deverá receber via props a função adicionarCarrinho que deverá ser chamada ao clicar no botão "Adicionar no carrinho".
-export default function CardProduto({ produto, adicionarCarrinho }: CardProdutoProps) {
+export default function CardProduto({
+  produto,
+  adicionarCarrinho,
+}: CardProdutoProps) {
+  const { isPending, addFavorito } = useAddFavorito(
+    () => toast.success("Produto favoritado com sucesso!"),
+    () => toast.error("Algo deu errado")
+  );
 
   return (
     <>
@@ -23,8 +32,19 @@ export default function CardProduto({ produto, adicionarCarrinho }: CardProdutoP
           <div className="card-body bg-light">
             <h5 className="card-title">{produto.nome}</h5>
             <p className="card-text text-secondary">{`R$ ${produto.preco}`}</p>
-            <button className="btn btn-dark d-block w-100" type="button" onClick={() => adicionarCarrinho(produto)}>
+            <button
+              className="btn btn-dark d-block w-100"
+              type="button"
+              onClick={() => adicionarCarrinho(produto)}
+            >
               Adicionar no carrinho
+            </button>
+            <button
+              className="btn btn-success d-block mt-1 w-100"
+              type="button"
+              onClick={() => addFavorito(produto)}
+            >
+              Favoritar
             </button>
           </div>
         </div>
