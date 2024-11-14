@@ -5,7 +5,7 @@ interface IListagemFavoritosProps {
   produtosFavoritos: Produto[];
   setFavoritos: React.Dispatch<React.SetStateAction<Produto[]>>;
 }
-
+// listagem de favoritos
 export default function ListagemFavoritos({
   produtosFavoritos,
   setFavoritos,
