@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuthContext } from "@/app/State/AuthProvider";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -9,6 +10,9 @@ type Inputs = {
 };
 
 export default function FormLogin() {
+  // TODO: chamar funçãoo do login com email
+  const { login } = useAuthContext();
+
   const {
     register,
     handleSubmit,

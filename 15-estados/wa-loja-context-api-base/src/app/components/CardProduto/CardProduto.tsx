@@ -1,5 +1,8 @@
 import { calculaValorComPorcentagemDeDesconto } from "@/app/helpers";
-import { FavoritosContext } from "@/app/State/FavoritosProvider";
+import {
+  FavoritosContext,
+  useFavoritosContext,
+} from "@/app/State/FavoritosProvider";
 import Image from "next/image";
 import { useContext } from "react";
 
@@ -14,13 +17,14 @@ export default function CardProduto({
   mostrarImagem = true,
   mostrarBotao = true,
 }: CardProdutoProps) {
-  const { favoritos, setFavoritos } = useContext(FavoritosContext);
+  const { favoritos, setFavoritos, verificaSeProdutoFavorito } =
+    useFavoritosContext();
 
   const adicionarAosFavoritos = (produto: Produto) => {
     setFavoritos((favoritos) => [...favoritos, produto]);
   };
 
-  const ehFavorito = favoritos.some((item) => item.id === produto.id);
+  const ehFavorito = verificaSeProdutoFavorito(produto.id);
 
   return (
     <div className="col">
