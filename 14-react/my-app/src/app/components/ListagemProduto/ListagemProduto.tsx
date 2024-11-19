@@ -2,7 +2,7 @@
 import React from "react";
 import CardProduto from "../CardProduto/CardProduto";
 
-import { IListagemProdutosProps, Produto } from "../../types/Produto";
+import { IListagemProdutosProps } from "../../types/Produto";
 import { useListaProdutos } from "@/app/hooks/useListaProdutos";
 
 export default function ListagemProduto({

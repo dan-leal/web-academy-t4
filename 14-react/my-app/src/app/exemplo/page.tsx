@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect } from "react";
-import { Produto } from "../types/Produto";
+import { ProdutoType } from "../types/Produto";
 
 export default function Exemplo() {
   const [contar, setContar] = React.useState<number>(0);
-  const [dados, setDados] = React.useState<Produto | null>(null);
+  const [dados, setDados] = React.useState<ProdutoType | null>(null);
   const [modal, setModal] = React.useState<boolean>(false);
 
   useEffect(() => {

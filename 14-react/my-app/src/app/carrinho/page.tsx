@@ -9,7 +9,10 @@ export default function Carrinho() {
   const [precoTotal, setPrecoTotal] = React.useState(0);
 
   React.useEffect(() => {
-    const total = itensCarrinho.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
+    const total = itensCarrinho.reduce(
+      (acc, item) => acc + item.preco * item.quantidade,
+      0
+    );
     setPrecoTotal(total);
   }, [itensCarrinho]);
 
@@ -17,9 +20,14 @@ export default function Carrinho() {
     <>
       <main>
         <div className="container p-5">
-
-          <ListagemCarrinho itensCarrinho={itensCarrinho} setItensCarrinho={setItensCarrinho}></ListagemCarrinho>
-          <ResumoCarrinho quantidadeItensTotal={itensCarrinho.length} precoTotal={precoTotal}></ResumoCarrinho>
+          <ListagemCarrinho
+            itensCarrinho={itensCarrinho}
+            setItensCarrinho={setItensCarrinho}
+          ></ListagemCarrinho>
+          <ResumoCarrinho
+            quantidadeItensTotal={itensCarrinho.length}
+            precoTotal={precoTotal}
+          ></ResumoCarrinho>
         </div>
       </main>
     </>

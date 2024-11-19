@@ -3,7 +3,7 @@ interface Fotos {
   src: string;
 }
 
-interface Produto {
+interface ProdutoType {
   id: string;
   fotos: Fotos[];
   nome: string;
@@ -14,12 +14,24 @@ interface Produto {
 }
 
 interface IListagemProdutosProps {
-  adicionarAoCarrinho: (item: Produto) => void;
+  adicionarAoCarrinho: (item: ProdutoType) => void;
 }
 
 interface CardProdutoProps {
-  produto: Produto;
-  adicionarCarrinho: (produto: Produto) => void;
+  produto: ProdutoType;
+  adicionarCarrinho: (produto: ProdutoType) => void;
 }
 
-export type { Produto, CardProdutoProps, IListagemProdutosProps };
+type ItemFavoritoProps = Omit<
+  ProdutoType,
+  "fotos" | "descricao" | "vendido" | "usuario_id"
+> & {
+  removerItem: (id: string) => void;
+};
+
+export type {
+  ProdutoType,
+  CardProdutoProps,
+  IListagemProdutosProps,
+  ItemFavoritoProps,
+};
