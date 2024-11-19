@@ -7,6 +7,6 @@ export async function addProdutoFavorito(produto: Produto) {
   });
 
   return apiFavoritos
-    .post<Produto>("", produto)
+    .post<Produto>("/favoritos", produto)
     .then((response) => response.data);
 }

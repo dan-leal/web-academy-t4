@@ -40,11 +40,11 @@ export default function CardProduto({
               Adicionar no carrinho
             </button>
             <button
-              className="btn btn-success d-block mt-1 w-100"
+              className="btn btn-light d-block mt-1 w-100"
               type="button"
               onClick={() => addFavorito(produto)}
             >
-              Favoritar
+              {isPending ? "Favoritando..." : "Favoritar"}
             </button>
           </div>
         </div>
