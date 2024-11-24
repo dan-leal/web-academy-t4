@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import ItemCarrinho from "../ItemCarrinho/ItemCarrinho";
 import { ProdutoType } from "@/app/types/Produto";
 import ItemFavorito from "../itemFavorito/ItemFavorito";
 import { useListaFavoritos } from "@/app/hooks/useListaFavoritos";
@@ -8,15 +7,12 @@ import { useListaFavoritos } from "@/app/hooks/useListaFavoritos";
 export default function ListagemFavoritos() {
   const { favoritos, isPending, isError } = useListaFavoritos();
 
+
   if (isPending) return <h5>Carregando...</h5>;
 
   if (isError) return <h5>Ocorreu um erro ao carregar os produtos.</h5>;
 
   if (!favoritos) return <h5>Não há produtos disponíveis no momento.</h5>;
-
-  function removerItem(id: string): void {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <>
@@ -33,13 +29,12 @@ export default function ListagemFavoritos() {
                 </tr>
               </thead>
               <tbody>
-                {favoritos.map((item: ProdutoType, index: number) => (
+                {favoritos.map((item: ProdutoType) => (
                   <ItemFavorito
                     key={item.id}
                     nome={item.nome}
                     preco={item.preco}
                     id={item.id}
-                    removerItem={removerItem}
                   />
                 ))}
               </tbody>

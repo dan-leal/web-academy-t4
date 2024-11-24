@@ -1,27 +1,28 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 
-import valorTotalProduto from "../../utils/produto";
-import { ProdutoType, ItemFavoritoProps } from "../../types/Produto";
+import { ItemFavoritoProps } from "../../types/Produto";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 export default function ItemCarrinho({
   id,
   nome,
   preco,
-  removerItem,
 }: ItemFavoritoProps) {
-  const [favoritos, setFavoritos] = useState<ProdutoType[]>([]);
 
-  const atualizarFavoritos = (favoritos: ProdutoType[]) => {
-    setFavoritos(favoritos);
-  };
+  const { mutate } = useMutation({
+    mutationFn: (id: string) => axios.delete(`/api/favoritos/${id}`),
+    onSuccess: () => {
+      alert("Produto removido com sucesso!");
+    },
+    onError: () => {
+      alert("Erro ao remover produto!");
+    },
+  });
 
-  const handleRemoverItem = (id: string) => {
-    if (removerItem) {
-      removerItem(id);
-      const atualizarFavoritos = favoritos.filter((item) => item.id !== id);
-      setFavoritos(atualizarFavoritos);
-    }
+  const handleRemoveItem = (id: string) => {
+    mutate(id);
   };
 
   return (
@@ -32,7 +33,7 @@ export default function ItemCarrinho({
         <td>
           <button
             className="btn btn-danger btn-sm"
-            onClick={() => handleRemoverItem(id)}
+            onClick={() => handleRemoveItem(id)}
           >
             Remover
           </button>

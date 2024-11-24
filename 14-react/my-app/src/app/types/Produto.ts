@@ -25,9 +25,7 @@ interface CardProdutoProps {
 type ItemFavoritoProps = Omit<
   ProdutoType,
   "fotos" | "descricao" | "vendido" | "usuario_id"
-> & {
-  removerItem: (id: string) => void;
-};
+>;
 
 export type {
   ProdutoType,
