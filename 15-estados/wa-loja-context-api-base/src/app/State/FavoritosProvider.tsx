@@ -1,5 +1,6 @@
 "use client";
 import { ReactNode, createContext, useContext, useState } from "react";
+import { calculaValorComPorcentagemDeDesconto } from "../helpers";
 
 interface FavoritosProviderProps {
   children: ReactNode;
@@ -13,7 +14,7 @@ interface IFavoritosContextType {
 
 export const FavoritosContext = createContext<IFavoritosContextType>({
   favoritos: [],
-  setFavoritos: () => {},
+  setFavoritos: () => { },
   verificaSeProdutoFavorito: (id: string) => false,
 });
 
@@ -39,5 +40,37 @@ export const useFavoritosContext = () => {
 
   return favoritosContext;
 };
+
+// Hook Customizado para receber um id e removê-lo da lista de favoritos
+export const useRemoverFavorito = (id: string) => {
+  const { favoritos, setFavoritos } = useFavoritosContext();
+
+  return (id: string) => {
+    setFavoritos((favoritos) => favoritos.filter((item) => item.id !== id));
+  };
+};
+
+export const useAdicionaFavorito = (produto: Produto) => {
+
+  const { favoritos, setFavoritos } = useFavoritosContext();
+
+  return () => {
+    setFavoritos((favoritos) => [...favoritos, produto]);
+  };
+}
+
+export const useCalculaValorTotalFavoritos = () => {
+  const { favoritos } = useFavoritosContext();
+
+  return favoritos.reduce((acc, produto) => {
+    return (
+      acc +
+      calculaValorComPorcentagemDeDesconto(
+        Number(produto.preco),
+        produto.desconto
+      )
+    );
+  }, 0);
+}
 
 export default FavoritosProvider;

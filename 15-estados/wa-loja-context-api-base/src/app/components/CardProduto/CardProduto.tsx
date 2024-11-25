@@ -1,6 +1,7 @@
 import { calculaValorComPorcentagemDeDesconto } from "@/app/helpers";
 import {
   FavoritosContext,
+  useAdicionaFavorito,
   useFavoritosContext,
 } from "@/app/State/FavoritosProvider";
 import Image from "next/image";
@@ -20,9 +21,7 @@ export default function CardProduto({
   const { favoritos, setFavoritos, verificaSeProdutoFavorito } =
     useFavoritosContext();
 
-  const adicionarAosFavoritos = (produto: Produto) => {
-    setFavoritos((favoritos) => [...favoritos, produto]);
-  };
+  const adicionarAosFavoritos = useAdicionaFavorito(produto);
 
   const ehFavorito = verificaSeProdutoFavorito(produto.id);
 
@@ -61,7 +60,7 @@ export default function CardProduto({
                   : "btn btn-secondary d-block w-100"
               }
               type="button"
-              onClick={() => adicionarAosFavoritos(produto)}
+              onClick={() => adicionarAosFavoritos()}
               disabled={ehFavorito}
             >
               {ehFavorito ? "Favoritado" : "Favoritar"}
