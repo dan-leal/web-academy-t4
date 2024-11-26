@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, createContext, useContext, useState } from "react";
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { calculaValorComPorcentagemDeDesconto } from "../helpers";
 
 interface FavoritosProviderProps {
@@ -20,6 +20,14 @@ export const FavoritosContext = createContext<IFavoritosContextType>({
 
 const FavoritosProvider = ({ children }: FavoritosProviderProps) => {
   const [favoritos, setFavoritos] = useState<Produto[]>([]);
+
+  useEffect(() => {
+    const favoritosLocalStorage = localStorage.getItem("favoritos");
+
+    if (favoritosLocalStorage) {
+      setFavoritos(JSON.parse(favoritosLocalStorage));
+    }
+  }, []);
 
   // Função no provider e incluir a função no value do container
   const verificaSeProdutoFavorito = (id: string) =>
@@ -44,9 +52,11 @@ export const useFavoritosContext = () => {
 // Hook Customizado para receber um id e removê-lo da lista de favoritos
 export const useRemoverFavorito = (id: string) => {
   const { favoritos, setFavoritos } = useFavoritosContext();
+  const novosFavoritos = favoritos.filter((item) => item.id !== id);
 
-  return (id: string) => {
-    setFavoritos((favoritos) => favoritos.filter((item) => item.id !== id));
+  return () => {
+    setFavoritos(novosFavoritos);
+    localStorage.setItem("favoritos", JSON.stringify(novosFavoritos));
   };
 };
 
@@ -56,6 +66,7 @@ export const useAdicionaFavorito = (produto: Produto) => {
 
   return () => {
     setFavoritos((favoritos) => [...favoritos, produto]);
+    localStorage.setItem("favoritos", JSON.stringify([...favoritos, produto]));
   };
 }
 

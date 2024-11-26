@@ -18,7 +18,24 @@ export default function Cadastro() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {};
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    if (data.email !== data.emailConfirmar) {
+      alert("Os emails não são iguais");
+      return;
+    }
+
+    const usuariosSalvos = localStorage.getItem("user");
+    if (usuariosSalvos) {
+      const user = JSON.parse(usuariosSalvos);
+      if (user.email === data.email) {
+        alert("Email já cadastrado");
+        return;
+      }
+    }
+
+    localStorage.setItem("user", JSON.stringify(data));
+    alert("Cadastro realizado");
+  };
 
   return (
     <main>

@@ -1,4 +1,5 @@
 "use client";
+import { redirect } from "next/dist/server/api-utils";
 import { useEffect, useState, useContext, createContext } from "react";
 
 interface AuthProviderProps {
@@ -12,21 +13,28 @@ interface IAuthContext {
 }
 export const AuthContext = createContext<IAuthContext>({
   emailUsuario: null,
-  login: () => {},
-  logout: () => {},
+  login: () => { },
+  logout: () => { },
 });
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [emailUsuario, setEmailUsuario] = useState<string | null>(null);
 
-  // TODO : get emailUsuario do localStorage
-  useEffect(() => {});
+  useEffect(() => {
+    const emailUsuarioLocalStorage = localStorage.getItem("emailUsuario");
+
+    if (emailUsuarioLocalStorage) {
+      setEmailUsuario(emailUsuarioLocalStorage);
+    }
+  }, []);
 
   // TODO: atualiza estado local + atualiza localstorage
-  const login = () => null;
+  const login = (email: string) => {
+    setEmailUsuario(email);
+  }
 
   // TODO: atualiza estado local + atualiza localstorage
-  const logout = () => null;
+  const logout = () => setEmailUsuario(null);
 
   const value = { emailUsuario, login, logout };
 

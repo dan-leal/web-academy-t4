@@ -19,7 +19,7 @@ export default function FormLogin() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {};
+  const onSubmit: SubmitHandler<Inputs> = (data) => { };
 
   return (
     <div className="col-12 col-md-8 d-flex justify-content-center align-items-center">
