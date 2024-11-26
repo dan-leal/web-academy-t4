@@ -1,5 +1,6 @@
 "use client";
 
+import AuthProvider, { useAuthContext } from "../State/AuthProvider";
 import FormLogin from "../components/FormLogin/FormLogin";
 
 export default function Login() {
@@ -10,7 +11,9 @@ export default function Login() {
           <div className="col-12 col-md-4 bg-light d-flex justify-content-center align-items-center">
             <h2>Bem vindo à WA Loja!</h2>
           </div>
-          <FormLogin />
+          <AuthProvider>
+            <FormLogin />
+          </AuthProvider>
         </div>
       </div>
     </main>

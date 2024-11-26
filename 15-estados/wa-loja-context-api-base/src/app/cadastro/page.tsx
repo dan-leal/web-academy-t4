@@ -34,7 +34,11 @@ export default function Cadastro() {
     }
 
     localStorage.setItem("user", JSON.stringify(data));
-    alert("Cadastro realizado");
+    alert("Cadastro realizado com sucesso");
+
+    // Redirecionar para a página de login
+    window.location.href = "/login";
+    return;
   };
 
   return (

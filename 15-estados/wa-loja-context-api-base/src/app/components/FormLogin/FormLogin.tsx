@@ -2,6 +2,8 @@
 
 import { useAuthContext } from "@/app/State/AuthProvider";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type Inputs = {
@@ -11,7 +13,7 @@ type Inputs = {
 
 export default function FormLogin() {
   // TODO: chamar funçãoo do login com email
-  const { login } = useAuthContext();
+  const { login, email } = useAuthContext();
 
   const {
     register,
@@ -19,7 +21,9 @@ export default function FormLogin() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => { };
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    login(data.email);
+  };
 
   return (
     <div className="col-12 col-md-8 d-flex justify-content-center align-items-center">
