@@ -1,5 +1,5 @@
 import { Product, PrismaClient } from "@prisma/client";
-import { CreateProductDTO } from "./product.types";
+import { CreateProductDTO, SearchProductDTO } from "./product.types";
 
 const prisma = new PrismaClient();
 
@@ -15,4 +15,33 @@ export const createProduct = async (
   product: CreateProductDTO
 ): Promise<Product> => {
   return prisma.product.create({ data: product });
+};
+
+export const getProductById = async (
+  produto: SearchProductDTO
+): Promise<Product | null> => {
+  return await prisma.product.findUnique({
+    where: {
+      id: produto.id,
+    },
+  });
+};
+
+export const updateProduct = async (
+  product: SearchProductDTO
+): Promise<Product | null> => {
+  return await prisma.product.update({
+    where: {
+      id: product.id,
+    },
+    data: product,
+  });
+};
+
+export const removeProduct = async (id: string): Promise<Product | null> => {
+  return await prisma.product.delete({
+    where: {
+      id,
+    },
+  });
 };

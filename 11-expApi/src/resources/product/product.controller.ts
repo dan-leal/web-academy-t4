@@ -4,6 +4,9 @@ import {
   checkAlreadyExists,
   createProduct,
   getAllProducts,
+  getProductById,
+  removeProduct,
+  updateProduct,
 } from "./product.service";
 import { CreateProductDTO } from "./product.types";
 
@@ -30,8 +33,44 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
-const read = async (req: Request, res: Response) => {};
-const update = async (req: Request, res: Response) => {};
-const remove = async (req: Request, res: Response) => {};
+const read = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const product = await getProductById({ id });
+    res.status(StatusCodes.ACCEPTED).json(product);
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+  }
+};
+
+const update = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const product: CreateProductDTO = req.body;
+    const updatedProduct = await updateProduct({ id, ...product });
+
+    if (product) {
+      res.status(StatusCodes.ACCEPTED).json(updatedProduct);
+    } else {
+      res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND);
+    }
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+  }
+};
+const remove = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.body;
+    const product = await removeProduct(id);
+
+    if (product) {
+      res.status(StatusCodes.ACCEPTED).json(`Produto de ID: ${id} removido`);
+    } else {
+      res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND);
+    }
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+  }
+};
 
 export default { index, create, read, update, remove };

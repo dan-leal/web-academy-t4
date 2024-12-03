@@ -4,3 +4,5 @@ export type CreateProductDTO = Pick<
   Product,
   "name" | "price" | "stockQuantity"
 >;
+
+export type SearchProductDTO = Pick<Product, "id">;
