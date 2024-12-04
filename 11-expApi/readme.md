@@ -17,3 +17,9 @@ Para criar uma instancia do PHPMyAdmin
 ```bash
 sudo docker run -d --name phpmyadmin --network loja-network -e PMA_HOST=mysql-loja -e PMA_PORT=3306 -e PMA_USER=root -e PMA_PASSWORD=senhasegura -p 8080:80 phpmyadmin/phpmyadmin
 ```
+
+Para reiniciar instância
+
+```bash
+sudo docker start containderID
+```
