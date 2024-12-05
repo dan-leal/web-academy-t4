@@ -13,7 +13,8 @@ export const getAllUsers = async (): Promise<userDTO[]> => {
 };
 
 export const createUser = async (user: createUserDTO): Promise<User> => {
-  const salt = await genSalt();
+  const rounds = parseInt(process.env.SALT_ROUNDS!);
+  const salt = await genSalt(rounds);
   const password = await hash(user.password, salt);
   return await prisma.user.create({ data: { ...user, password } });
 };

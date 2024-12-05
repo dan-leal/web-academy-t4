@@ -5,6 +5,7 @@ function validateEnv() {
     PORT: port(),
     NODE_ENV: str(),
     DEFAULT_LANG: str({ choices: ["pt-BR", "en-US"] }),
+    SALT_ROUNDS: str(),
   });
 }
 

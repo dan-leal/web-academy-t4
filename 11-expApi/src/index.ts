@@ -1,6 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import session from "express-session";
+import { v4 as uuidv4 } from "uuid";
+
+declare module "express-session" {
+  interface SessionData {
+    uid: string;
+    userTypeId: string;
+  }
+}
 
 import validateEnv from "./utils/validateEnv";
 import router from "./router";
@@ -15,6 +24,7 @@ const PORT = process.env.PORT ?? 7777;
 app.use(cookieParser());
 app.use(express.json());
 app.use(createCookieLang);
+
 app.use(router);
 
 app.get("/", (req, res) => {

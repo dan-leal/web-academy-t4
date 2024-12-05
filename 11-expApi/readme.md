@@ -21,5 +21,5 @@ sudo docker run -d --name phpmyadmin --network loja-network -e PMA_HOST=mysql-lo
 Para reiniciar instância
 
 ```bash
-sudo docker start containderID
+sudo docker restart containderID
 ```
