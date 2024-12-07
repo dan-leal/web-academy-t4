@@ -7,12 +7,19 @@ const prisma = new PrismaClient();
 export const checkCredentials = async ({
   email,
   password,
-}: LoginDTO): Promise<false | User> => {
+}: LoginDTO): Promise<User | null> => {
   const usuario = await prisma.user.findUnique({
     where: { email },
   });
-  if (!usuario) return false;
+  if (!usuario) return null;
   const ok = await compare(password, usuario.password);
-  if (ok) return usuario;
-  return false;
+  if (!ok) return null;
+  return usuario;
+};
+
+export const checkIsAdmin = async (uid: string): Promise<boolean> => {
+  const usuario = await prisma.user.findUnique({
+    where: { id: uid },
+  });
+  return Number(usuario?.userTypeId) === 1;
 };
