@@ -31,6 +31,7 @@ const login = async (req: Request, res: Response): Promise<any> => {
     if (!usuario) return res.status(StatusCodes.UNAUTHORIZED).json(ReasonPhrases.UNAUTHORIZED)
     req.session.uid = usuario.id
     req.session.userTypeId = usuario.userTypeId
+    req.session.cart = []
     res.status(StatusCodes.OK).json({ msg: 'Usuário autenticado' });
   }
   catch (e) {

@@ -12,5 +12,7 @@ router.post("/", isAuth, isAdmin, validate(productSchema), productController.cre
 router.get("/:id", isAuth, validate(productSchemaID), productController.read);
 router.patch("/:id", isAuth, isAdmin, validate(productSchema), productController.update);
 router.delete("/", isAuth, isAdmin, validate(productSchemaID), productController.remove);
+router.post("/add-to-cart", isAuth, validate(productSchemaID), productController.addToCart);
+router.post("/order", isAuth, productController.buy);
 
 export default router;

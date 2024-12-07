@@ -1,6 +1,7 @@
 import { PrismaClient, User } from "@prisma/client";
 import { LoginDTO } from "./auth.types";
 import { compare } from "bcryptjs";
+import { UserTypes } from "../userType/userType.constants";
 
 const prisma = new PrismaClient();
 
@@ -21,5 +22,5 @@ export const checkIsAdmin = async (uid: string): Promise<boolean> => {
   const usuario = await prisma.user.findUnique({
     where: { id: uid },
   });
-  return Number(usuario?.userTypeId) === 1;
+  return (usuario?.userTypeId) === UserTypes.ADMIN;
 };

@@ -12,9 +12,7 @@ export const productSchema = Joi.object().keys({
   stockQuantity: Joi.number().integer().required().messages({
     "number.base": "stockQuantity must be a number",
     "number.integer": "stockQuantity must be an integer",
-  }),
-  createdAt: Joi.date().required(),
-  updatedAt: Joi.date().required(),
+  })
 });
 
 export const productSchemaID = Joi.object().keys({

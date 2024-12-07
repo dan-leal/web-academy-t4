@@ -8,11 +8,13 @@ import { v4 as uuidv4 } from "uuid";
 import validateEnv from "./utils/validateEnv";
 import router from "./router";
 import createCookieLang from "./middlewares/createCookieLang";
+import { Product } from "@prisma/client";
 
 declare module "express-session" {
   interface SessionData {
     uid: string;
     userTypeId: string;
+    cart: Product[];
   }
 }
 

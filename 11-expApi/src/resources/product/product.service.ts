@@ -1,5 +1,5 @@
-import { Product, PrismaClient } from "@prisma/client";
-import { CreateProductDTO, SearchProductDTO } from "./product.types";
+import { Product, PrismaClient, Order } from "@prisma/client";
+import { CreateOrderDTO, CreateProductDTO, SearchProductDTO } from "./product.types";
 
 const prisma = new PrismaClient();
 
@@ -16,6 +16,26 @@ export const createProduct = async (
 ): Promise<Product> => {
   return prisma.product.create({ data: product });
 };
+
+export const createOrder = async (
+  order: CreateOrderDTO
+): Promise<Order> => {
+  return prisma.order.create({
+    data: {
+      ...order,
+      products: {
+        create: order.products.map(product => ({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          stockQuantity: product.stockQuantity,
+          createdAt: product.createdAt,
+          updatedAt: product.updatedAt,
+        })),
+      },
+    },
+  });
+}
 
 export const getProductById = async (
   produto: SearchProductDTO

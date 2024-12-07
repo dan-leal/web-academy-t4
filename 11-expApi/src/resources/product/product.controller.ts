@@ -7,8 +7,11 @@ import {
   getProductById,
   removeProduct,
   updateProduct,
+  createOrder
 } from "./product.service";
-import { CreateProductDTO } from "./product.types";
+import { CreateOrderDTO, CreateProductDTO } from "./product.types";
+import { Product } from "@prisma/client";
+import { Decimal } from "@prisma/client/runtime/library";
 
 const index = async (req: Request, res: Response) => {
   try {
@@ -73,4 +76,50 @@ const remove = async (req: Request, res: Response) => {
   }
 };
 
-export default { index, create, read, update, remove };
+const addToCart = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.body;
+    const product = await getProductById({ id });
+    if (product) {
+      if (req.session.cart) {
+        req.session.cart.push(product);
+        res.status(StatusCodes.ACCEPTED).json(req.session.cart);
+      } else {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Cart está indisponível");
+      }
+    } else {
+      res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND);
+    }
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+  }
+}
+
+const buy = async (req: Request, res: Response): Promise<void> => {
+  const products = req.session.cart;
+
+  if (!products) {
+    res.status(StatusCodes.BAD_REQUEST).send("Carrinho vazio");
+    return;
+  }
+  const totalValue = products.reduce((acc, curr) => acc.plus(new Decimal(curr.price)), new Decimal(0));
+  try {
+    if (req.session.cart && req.session.uid) {
+      // const order: CreateOrderDTO = {
+      //   products,
+      //   totalValue,
+      //   userId: req.session.uid,
+      // };
+      // const newOrder = await createOrder(order);
+      req.session.cart = [];
+
+      res.status(StatusCodes.ACCEPTED).send("Compra efetuada com sucesso");
+    } else {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Cart está indisponível");
+    }
+  } catch (err) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
+  }
+}
+
+export default { index, create, read, update, remove, addToCart, buy };

@@ -5,6 +5,7 @@ const isAdmin = async (
   res: Response,
   next: NextFunction
 ) => {
+  console.log(req.session.uid, req.session.userTypeId);
   const uid = req.session.uid;
   if (uid && (await checkIsAdmin(uid))) next();
   else res.status(403).json({ msg: 'Não autorizado' });
