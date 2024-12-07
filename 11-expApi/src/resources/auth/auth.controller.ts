@@ -6,6 +6,31 @@ import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { checkCredentials } from "./auth.service";
 
 const signup = async (req: Request, res: Response): Promise<any> => {
+
+  /* #swagger.tags = ['Auth']
+  #swagger.description = 'Endpoint para cadastro de usuário'
+  */
+
+  /* #swagger.parameters['body'] = {
+    in: 'body',
+    description: 'Dados do usuário',
+    required: true,
+    type: 'object',
+    schema: { $ref: "#/definitions/SingupDTO" }
+  } */
+
+  /* #swagger.responses[201] = {
+    description: 'Usuário cadastrado'
+  } */
+
+  /* #swagger.responses[409] = {
+    description: 'Email já cadastrado'
+  } */
+
+  /* #swagger.responses[500] = {
+    description: 'Erro no servidor'
+  } */
+
   const user: SingupDTO = req.body;
   try {
     if (await findUserByEmail(user.email))
@@ -25,6 +50,25 @@ const signup = async (req: Request, res: Response): Promise<any> => {
 };
 
 const login = async (req: Request, res: Response): Promise<any> => {
+
+
+  /*
+  #swagger.tags = ['Auth']
+  #swagger.description = 'Endpoint para autenticação de usuário'
+  #swagger.description = 'Endpoint para autenticação de usuário'
+  #swagger.parameters['body'] = {
+    in: 'body',
+    description: 'Login de usuário',
+    required: true,
+    type: 'object',
+    schema: { $ref: "#/definitions/LoginDTO" },
+    }
+  #swagger.responses[200] = {description: 'Usuário autenticado'}
+  #swagger.responses[401] = {description: 'Credenciais inválidas'}
+  #swagger.responses[500] = {description: 'Erro no servidor'}
+
+  */
+
   const credentails = req.body as LoginDTO;
   try {
     const usuario = await checkCredentials(credentails);
@@ -40,6 +84,13 @@ const login = async (req: Request, res: Response): Promise<any> => {
 };
 
 const logout = async (req: Request, res: Response): Promise<any> => {
+
+  // #swagger.tags = ['Auth']
+  // #swagger.description = 'Endpoint para logout de usuário'
+  // #swagger.responses[200] = {description: 'Logout efetuado'}
+  // #swagger.responses[401] = {description: 'Usuário não autenticado'}
+  // #swagger.responses[500] = {description: 'Erro no servidor'}
+
   if (!req.session.uid) return res.status(StatusCodes.UNAUTHORIZED).json({ msg: 'Usuário não autenticado' });
   req.session.destroy((err) => {
     if (err) return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);

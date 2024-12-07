@@ -10,6 +10,9 @@ import router from "./router";
 import createCookieLang from "./middlewares/createCookieLang";
 import { Product } from "@prisma/client";
 
+import swaggerUi from "swagger-ui-express";
+import swaggerOutput from "./swagger_output.json";
+
 declare module "express-session" {
   interface SessionData {
     uid: string;
@@ -44,3 +47,5 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Express app iniciada na porta ${PORT}.`);
 });
+
+app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
